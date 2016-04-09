@@ -5,8 +5,10 @@ No estoy afiliado con esa página, en ninguna forma, el uso de este script es so
 Aún le queda mucho camino, esto es una prueba de concepto.
 
 Este programa usa las dependencias:
-
-lxml, mega.py, urldecode, requests
+* lxml
+* mega.py
+* urldecode
+* requests
 
 Podéis instalarlas con pip install.
 
