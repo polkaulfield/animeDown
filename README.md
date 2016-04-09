@@ -15,3 +15,11 @@ animeDown.py url_de_la_serie directorio_de_descarga
 
 El script busca por la página, y crea un directorio con el nombre de la serie en la carpeta especificada, donde descarga los capítulos.
 
+#Pendiente
+
+* Añadir soporte para más páginas de descarga.
+* Implementar la librería para descargar de Mega desde 0.
+* Soporte de búsqueda.
+* Guardar configuración.
+* Quizás una GUI, plug-ins y más cosillas...
+
