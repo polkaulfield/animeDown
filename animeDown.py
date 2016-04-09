@@ -5,6 +5,8 @@ from lxml import html
 from url_decode import urldecode
 import sys, os, requests
 
+#version to display
+version = 'UnderAnime Downloader v0.1 by Shakku\n'
 
 class Episode:
 	def __init__(self, name, num, url):
@@ -12,13 +14,15 @@ class Episode:
 		self.num = num
 		self.url = url
 
+#checks arguments and displays usage
 def CheckArgs(args):
 	if len(args) != 3:
-		print 'UnderAnime Downloader v0.1 by Shakku\n'
+		print version
 		print 'Uso: ' + args[0] + '  Link Dirección de la carpeta'
 		sys.exit(1)
 	return
 
+#http request
 def GetUrl(Url):
 	try:
 		page = requests.get(Url)
@@ -27,16 +31,19 @@ def GetUrl(Url):
 		sys.exit(1)
 	return page
 
+#checks directory
 def CheckDir(Dir):
 	if not os.path.exists(Dir):
 		print 'Comprueba la carpeta!'
 		sys.exit(1)
 	return
 
+#gets the name of the anime
 def GetTitle(page):
 	title = page.xpath('//*[@id="hen-info"]/div/div/div[1]/div/div/h3/text()')
 	return title[0]
 
+#function to get all links from the page and return an object list
 def GetEpisodes(page):
 	#Get all the raw links and episode names and put them on a list.
 	rawLinks = page.xpath('//*[@id="holder-nav"]/li/a/@onclick')
@@ -61,6 +68,7 @@ def GetEpisodes(page):
 		episodes.append(episode)
 	return episodes
 
+#main function
 def main():
 	CheckArgs(sys.argv)
 	url = sys.argv[1]
@@ -84,7 +92,7 @@ def main():
 	mega = Mega()
 
 	#Starting download...
-	print 'UnderAnime Downloader v0.1 by Shakku\n'
+	print version
 	print '[*] Descargando ' + title + ' en ' + savePath
 	print '[*] ' + str(numEpisodes) + ' capítulos en cola...'
 
@@ -103,6 +111,7 @@ def main():
 	print '[*] Descarga terminada!'
 	sys.exit(0)
 
+#run main
 main()
 
 	
