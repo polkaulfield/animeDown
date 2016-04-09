@@ -1,13 +1,14 @@
 # animeDown 0.1
-Script para descargar anime de underanime.net.
+Script en python para descargar series de underanime.net.
 
-No estoy afiliado con esta página, el uso de este script es solo con fines demostrativos.
-Tened en cuenta que está sin terminar, esto es una prueba de concepto.
+No estoy afiliado con esa página, en ninguna forma, el uso de este script es solo para fines educativos.
+Aún le queda mucho camino, esto es una prueba de concepto.
 
-Este script usa las dependencias:
+Este programa usa las dependencias:
 
 lxml, mega.py, urldecode, requests
 
+Podéis instalarlas con pip install.
 
 #Uso
 
