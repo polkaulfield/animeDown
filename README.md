@@ -1,11 +1,13 @@
-# animeDown
+# animeDown 0.1
 Script para descargar anime de underanime.net.
 
 No estoy afiliado con esta página, el uso de este script es solo con fines demostrativos.
+Tened en cuenta que está sin terminar, esto es una prueba de concepto.
 
 Este script usa las dependencias:
 
 lxml, mega.py, urldecode, requests
+
 
 #Uso
 
