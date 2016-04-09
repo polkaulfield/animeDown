@@ -18,7 +18,8 @@ El script busca por la página, y crea un directorio con el nombre de la serie e
 #Pendiente
 
 * Añadir soporte para más páginas de descarga.
-* Implementar la librería para descargar de Mega desde 0.
+* Optimizar la librería para descargar de Mega.nz (quizás crear un módulo desde 0).
+* Descargas paralelas.
 * Soporte de búsqueda.
 * Guardar configuración.
 * Quizás una GUI, plug-ins y más cosillas...
