@@ -6,7 +6,7 @@ from url_decode import urldecode
 import sys, os, requests, urllib, Tkinter, tkFileDialog
 
 #version to display
-version = 'UnderAnime Downloader v0.3 alpha by Shakku\n'
+version = 'animeDown v0.3 alpha by Shakku\n'
 
 class Episode:
 	def __init__(self, name, num, url):
@@ -145,7 +145,8 @@ def main():
 	episodes = GetEpisodes(result[choice].url)
 	numEpisodes = len(episodes)
 
-	#create directory for saving anime and hide tk main window
+	#create directory for saving anime
+
 	w = Tkinter.Tk()
 	w.withdraw()
 
@@ -160,7 +161,7 @@ def main():
 		os.mkdir(savePath)
 
 	#create Mega downloader object
-	mega = Mega()
+	mega = Mega({'verbose': True})
 
 	#Starting download...
 	Clear()
