@@ -3,16 +3,22 @@
 from mega import Mega
 from lxml import html
 from url_decode import urldecode
-import sys, os, requests
+import sys, os, requests, urllib, Tkinter, tkFileDialog
 
 #version to display
-version = 'UnderAnime Downloader v0.1 by Shakku\n'
+version = 'UnderAnime Downloader v0.3 alpha by Shakku\n'
 
 class Episode:
 	def __init__(self, name, num, url):
 		self.name = name
 		self.num = num
 		self.url = url
+
+class Anime:
+	def __init__(self, name, url, num):
+		self.name = name
+		self.url = url
+		self.num = num
 
 #checks arguments and displays usage
 def CheckArgs(args):
@@ -22,13 +28,21 @@ def CheckArgs(args):
 		sys.exit(1)
 	return
 
+def Clear():
+	if os.name == "posix":
+		os.system('clear')
+	else:
+		os.system('cls')
+	return
+
 #http request
 def GetUrl(Url):
 	try:
 		page = requests.get(Url)
 	except:
-		print 'Comprueba el link!'
+		print 'Error! No se pudo conectar!'
 		sys.exit(1)
+	page = html.fromstring(page.content)
 	return page
 
 #checks directory
@@ -39,12 +53,14 @@ def CheckDir(Dir):
 	return
 
 #gets the name of the anime
-def GetTitle(page):
+def GetTitle(url):
+	page = GetUrl(url)
 	title = page.xpath('//*[@id="hen-info"]/div/div/div[1]/div/div/h3/text()')
 	return title[0]
 
 #function to get all links from the page and return an object list
-def GetEpisodes(page):
+def GetEpisodes(url):
+	page = GetUrl(url)
 	#Get all the raw links and episode names and put them on a list.
 	rawLinks = page.xpath('//*[@id="holder-nav"]/li/a/@onclick')
 	epNames = page.xpath('//*[@id="holder-nav"]/li/a/span/text()')
@@ -68,22 +84,77 @@ def GetEpisodes(page):
 		episodes.append(episode)
 	return episodes
 
+def SearchEngine(search):
+	searchUrl = 'https://www.underanime.net/?s='
+	search = urllib.quote(search)
+	page = GetUrl(searchUrl + search)
+	animeLinks = page.xpath('//*/div/div/div/div[@class="base_inner h255 loading"]/a/@href')
+	animeNames = page.xpath('//*/div/div/div/div[@class="base_inner h255 loading"]/a/@title')
+	
+	#check links, todo better
+	linkNum = len(animeLinks)
+	if linkNum != len(animeNames):
+		print 'Error, links ausentes!'
+		sys.exit(1)
+
+	#create anime list
+	animeList = []
+
+	for n in range(0, linkNum):
+		anime = Anime(animeNames[n], animeLinks[n], n)
+		animeList.append(anime)
+	return animeList
+
+def DisplayResult(results):
+
+	if len(results) == 0:
+		print 'No se encontro nada :('
+		return
+
+	while True:
+		Clear()
+		print version
+		print 'Selecciona el anime que deseas descargar:'
+		for result in results:
+			n = str(result.num)
+			print '[' + n + '] ' + result.name
+		choice = raw_input('\nIntroduce un numero: ')
+		if choice.isdigit():
+			choice = int(choice)
+			if choice >= len(results):
+				print 'Error! Introduce un numero dentro del rango.'
+				raw_input()
+			else:
+				return choice
+		else:
+			print 'Error! Introduce un numero!'
+			raw_input()
+		
+
+
 #main function
 def main():
-	CheckArgs(sys.argv)
-	url = sys.argv[1]
-	path = sys.argv[2]
-
-	#Get page
-	page = GetUrl(url)
-	page = html.fromstring(page.content)
-
+	Clear()
+	print version
+	search = raw_input('Introduce tu busqueda: ')
+	result = SearchEngine(search)
+	choice = DisplayResult(result)
+	
 	#get title and episode objects
-	title = GetTitle(page)
-	episodes = GetEpisodes(page)
+	title = GetTitle(result[choice].url)
+	episodes = GetEpisodes(result[choice].url)
 	numEpisodes = len(episodes)
 
-	#create directory for saving anime
+	#create directory for saving anime and hide tk main window
+	w = Tkinter.Tk()
+	w.withdraw()
+
+	path = tkFileDialog.askdirectory()
+
+	if not os.path.exists(path):
+		print 'Error, quitting!'
+		sys.exit(1)
+
 	savePath = os.path.join(path, title)
 	if not os.path.exists(savePath):
 		os.mkdir(savePath)
@@ -92,29 +163,27 @@ def main():
 	mega = Mega()
 
 	#Starting download...
+	Clear()
 	print version
 	print '[*] Descargando ' + title + ' en ' + savePath
-	print '[*] ' + str(numEpisodes) + ' capítulos en cola...'
+	print '[*] ' + str(numEpisodes) + ' capitulos en cola...'
 
 	#iterate through episodes list and download
 	for episode in episodes:
-		print '[*] Capítulo número ' + str(episode.num) + ' descargando...'
+		print '[*] Capitulo numero ' + str(episode.num) + ' descargando...'
 		try:
 			mega.download_url(episode.url, savePath)
 		except:
 			print '[!] Error! Saliendo!'
 			exit(1)
-		print '[*] Capítulo ' + str(episode.num) + ' descargado!'
+		print '[*] Capitulo ' + str(episode.num) + ' descargado!'
 	return
 
 	#Finish and exit if no errors
-	print '[*] Descarga terminada!'
+	print '[*] Descarga terminada! Presiona enter para salir.'
+	raw_input()
 	sys.exit(0)
 
-#run main
 main()
-
-	
-
 
 
