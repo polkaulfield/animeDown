@@ -6,7 +6,7 @@ from url_decode import urldecode
 import sys, os, requests, urllib, Tkinter, tkFileDialog
 
 #version to display
-version = 'animeDown v0.3 alpha by Shakku\n'
+version = 'animeDown v0.4 alpha by Shakku\n'
 
 class Episode:
 	def __init__(self, name, num, url):
@@ -40,7 +40,7 @@ def GetUrl(Url):
 	try:
 		page = requests.get(Url)
 	except:
-		print 'Error! No se pudo conectar!'
+		print '[!] Error! No se pudo conectar!'
 		sys.exit(1)
 	page = html.fromstring(page.content)
 	return page
@@ -48,7 +48,7 @@ def GetUrl(Url):
 #checks directory
 def CheckDir(Dir):
 	if not os.path.exists(Dir):
-		print 'Comprueba la carpeta!'
+		print '[!] Comprueba la carpeta!'
 		sys.exit(1)
 	return
 
@@ -68,7 +68,7 @@ def GetEpisodes(url):
 	#check links
 	epNumber = len(rawLinks)
 	if epNumber != len(epNames):
-		print 'Error, faltan links en esta serie!'
+		print '[!] Error, faltan links en esta serie!'
 		sys.exit(1)
 
 	#Create the episodes list
@@ -94,7 +94,7 @@ def SearchEngine(search):
 	#check links, todo better
 	linkNum = len(animeLinks)
 	if linkNum != len(animeNames):
-		print 'Error, links ausentes!'
+		print '[!] Error, links ausentes!'
 		sys.exit(1)
 
 	#create anime list
@@ -105,12 +105,19 @@ def SearchEngine(search):
 		animeList.append(anime)
 	return animeList
 
+def SearchInput():
+	while True:
+		Clear()
+		print version
+		search = raw_input('Introduce tu busqueda: ')
+		result = SearchEngine(search)
+		if result != []:
+			return result
+		else:
+			print '[!] No se encontro nada. Presiona enter para volver a buscar.'
+			raw_input()
+
 def DisplayResult(results):
-
-	if len(results) == 0:
-		print 'No se encontro nada :('
-		return
-
 	while True:
 		Clear()
 		print version
@@ -122,24 +129,24 @@ def DisplayResult(results):
 		if choice.isdigit():
 			choice = int(choice)
 			if choice >= len(results):
-				print 'Error! Introduce un numero dentro del rango.'
+				print '[!] Error! Introduce un numero dentro del rango.'
 				raw_input()
 			else:
 				return choice
 		else:
-			print 'Error! Introduce un numero!'
+			print '[!] Error! Introduce un numero!'
 			raw_input()
 		
 
 
 #main function
 def main():
-	Clear()
-	print version
-	search = raw_input('Introduce tu busqueda: ')
-	result = SearchEngine(search)
+	#display search menu
+	result = SearchInput()
+
+	#show found series
 	choice = DisplayResult(result)
-	
+
 	#get title and episode objects
 	title = GetTitle(result[choice].url)
 	episodes = GetEpisodes(result[choice].url)
@@ -153,7 +160,7 @@ def main():
 	path = tkFileDialog.askdirectory()
 
 	if not os.path.exists(path):
-		print 'Error, quitting!'
+		print '[!] Error, quitting!'
 		sys.exit(1)
 
 	savePath = os.path.join(path, title)
