@@ -1,22 +1,26 @@
-# animeDown 0.1
-Script en python para descargar series de underanime.net.
+# animeDown 0.3 Alpha
+Programa en python para descargar series de underanime.net.
 
 No estoy afiliado con esa página, en ninguna forma, el uso de este script es solo para fines educativos.
 Aún le queda mucho camino, esto es una prueba de concepto.
+El script busca por la página, y crea un directorio con el nombre de la serie en la carpeta especificada, donde descarga los capítulos.
+
+#Uso
+Los usuarios de windows podéis usar el el script o el ejecutable ya precompilado con pyinstaller, que no necesita dependencias. Los usuarios de Linux, BSD y OSX os toca bajar las dependencias :)
 
 Este programa usa las dependencias:
 * lxml
 * mega.py
 * urldecode
 * requests
+* tk
 
 Podéis instalarlas con pip install.
+En Ubuntu si tira error, instalad la libreria tk con el comando: 
+sudo apt-get install python-tk
 
-#Uso
-
-animeDown.py url_de_la_serie directorio_de_descarga
-
-El script busca por la página, y crea un directorio con el nombre de la serie en la carpeta especificada, donde descarga los capítulos.
+#Changelog
+0.3 Añadido sistema de búsquedas y GUI para seleccionar la carpeta de descargas, algunos bugs arreglados.
 
 #Pendiente
 
