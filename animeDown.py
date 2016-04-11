@@ -179,7 +179,7 @@ def main():
 			mega.download_url(episode.url, savePath)
 		except:
 			print '[!] Error! Saliendo!'
-			exit(1)
+			sys.exit(1)
 		print '[*] Capitulo ' + str(episode.num) + ' descargado!'
 	return
 
