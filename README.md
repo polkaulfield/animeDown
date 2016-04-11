@@ -21,7 +21,7 @@ sudo apt-get install python-tk
 
 #Changelog
 * 0.4 Algunos bugs arreglados.
-* 0.3 Añadido sistema de búsquedas y GUI para seleccionar la carpeta de descargas, algunos bugs arreglados.
+* 0.3 Añadido sistema de búsquedas y GUI para seleccionar la carpeta de descargas.
 
 #Pendiente
 
