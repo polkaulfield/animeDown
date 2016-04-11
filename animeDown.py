@@ -188,6 +188,8 @@ def main():
 	raw_input()
 	sys.exit(0)
 
-main()
+#main check
+if __name__ == '__main__':
+	main()
 
 
