@@ -8,7 +8,7 @@ El script busca por la página, y crea un directorio con el nombre de la serie e
 #Uso
 Los usuarios de windows podéis usar el el script o el ejecutable ya precompilado con pyinstaller, que no necesita dependencias. Los usuarios de Linux, BSD y OSX os toca bajar las dependencias :)
 
-Este programa usa las dependencias:
+Este programa usa las librerías:
 * lxml
 * mega.py
 * urldecode
