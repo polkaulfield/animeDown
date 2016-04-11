@@ -20,14 +20,6 @@ class Anime:
 		self.num = num
 		self.url = url
 
-#checks arguments and displays usage
-def CheckArgs(args):
-	if len(args) != 3:
-		print version
-		print 'Uso: ' + args[0] + '  Link Dirección de la carpeta'
-		sys.exit(1)
-	return
-
 def Clear():
 	if os.name == "posix":
 		os.system('clear')
