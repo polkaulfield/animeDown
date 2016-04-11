@@ -20,6 +20,14 @@ class Anime:
 		self.num = num
 		self.url = url
 
+#checks arguments and displays usage
+def CheckArgs(args):
+	if len(args) != 3:
+		print version
+		print 'Uso: ' + args[0] + '  Link Dirección de la carpeta'
+		sys.exit(1)
+	return
+
 def Clear():
 	if os.name == "posix":
 		os.system('clear')
@@ -93,7 +101,7 @@ def SearchEngine(search):
 	animeList = []
 
 	for n in range(0, linkNum):
-		anime = Anime(animeNames[n], animeLinks[n], n)
+		anime = Anime(animeNames[n], n, animeLinks[n])
 		animeList.append(anime)
 	return animeList
 
@@ -179,7 +187,7 @@ def main():
 			mega.download_url(episode.url, savePath)
 		except:
 			print '[!] Error! Saliendo!'
-			sys.exit(1)
+			exit(1)
 		print '[*] Capitulo ' + str(episode.num) + ' descargado!'
 	return
 
@@ -188,8 +196,7 @@ def main():
 	raw_input()
 	sys.exit(0)
 
-#main check
-if __name__ == '__main__':
+if __name__ == "__main__":
 	main()
 
 
