@@ -15,18 +15,10 @@ class Episode:
 		self.url = url
 
 class Anime:
-	def __init__(self, name, url, num):
+	def __init__(self, name, num, url):
 		self.name = name
-		self.url = url
 		self.num = num
-
-#checks arguments and displays usage
-def CheckArgs(args):
-	if len(args) != 3:
-		print version
-		print 'Uso: ' + args[0] + '  Link Dirección de la carpeta'
-		sys.exit(1)
-	return
+		self.url = url
 
 def Clear():
 	if os.name == "posix":
