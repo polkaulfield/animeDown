@@ -6,7 +6,7 @@ from url_decode import urldecode
 import sys, os, requests, urllib, Tkinter, tkFileDialog
 
 #version to display
-version = 'animeDown v0.4 alpha by Shakku\n'
+version = 'animeDown v0.4.1 alpha by Shakku\n'
 
 class Episode:
 	def __init__(self, name, num, url):
@@ -163,7 +163,11 @@ def main():
 		print '[!] Error, quitting!'
 		sys.exit(1)
 
-	savePath = os.path.join(path, title)
+	#Bugfix for naming folders on windows
+	folderName = title.translate(None, '"<>:/\\|?*')
+
+	#Creating the folder
+	savePath = os.path.join(path, folderName)
 	if not os.path.exists(savePath):
 		os.mkdir(savePath)
 
