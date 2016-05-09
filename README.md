@@ -1,4 +1,4 @@
-# animeDown 0.4.1 Alpha
+# animeDown 0.5 Alpha
 Programa en python para descargar series de underanime.net.
 
 No estoy afiliado con esa página, en ninguna forma, el uso de este script es solo para fines educativos.
