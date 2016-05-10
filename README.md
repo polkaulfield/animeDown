@@ -1,4 +1,4 @@
-# animeDown 0.5 Alpha
+# animeDown 0.5.1 Alpha
 Programa en python para descargar series de underanime.net.
 
 No estoy afiliado con esa página, en ninguna forma, el uso de este script es solo para fines educativos.
@@ -20,6 +20,7 @@ En Ubuntu si tira error, instalad la libreria tk con el comando:
 sudo apt-get install python-tk
 
 #Changelog
+* 0.5.1 Arreglado el display de caracteres especiales en la consola de Windows y algunas mejoras.
 * 0.4.1 Arreglado un bug con los carácteres especiales al crear la carpeta que crasheaba la aplicación en Windows.
 * 0.4 Algunos bugs arreglados.
 * 0.3 Añadido sistema de búsquedas y GUI para seleccionar la carpeta de descargas.
